@@ -1,7 +1,7 @@
 const Scheme = () => (
   <div className="flex justify-center px-4 py-10">
     <img
-      src="/схема.jpeg"
+      src="/backetball-scheme.jpg"
       alt="Схема площадки"
       className="w-full max-w-5xl rounded-xl shadow-2xl border-4 border-white"
     />
