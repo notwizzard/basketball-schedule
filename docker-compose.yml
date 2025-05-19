@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: basketball-app
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    networks:
+      - web
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    entrypoint: >
+      sh -c "certbot certonly --webroot \
+        --webroot-path=/var/www/certbot \
+        --email mi.morgun.ivan@mail.ru \
+        --agree-tos \
+        --no-eff-email \
+        --non-interactive \
+        -d omsk-basket.ru -d www.omsk-basket.ru"
+    networks:
+      - web
+
+networks:
+  web:
+    driver: bridge
